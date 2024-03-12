@@ -15,7 +15,7 @@ const CarCard = ({ car }: carCardProps) => {
 
   const carRent = calculateCarRent(city_mpg, year);
   return (
-    <div className="car-card group">
+    <div className="car-card group cursor-pointer">
       <div className="car-card__content">
         <h2 className="car-card__content-title">
           {make} {model}
@@ -28,6 +28,33 @@ const CarCard = ({ car }: carCardProps) => {
 
         <span className="self-end text-[14px] font-medium">/day</span>
       </p>
+
+      <div className="relative w-full h-40 my-3 object-contain">
+        <Image
+          src="/hero.png"
+          alt="Car Model"
+          fill
+          priority
+          className="object-contain"
+        />
+      </div>
+
+      <div className="relative flex w-full mt-2">
+        <div className="flex group-hover:invisible w-full justify-between text-gray">
+          <div className="flex flex-col justify-center items-center gap-2">
+            <Image
+              src="/steering-wheel.svg"
+              alt="steering wheel"
+              width={20}
+              height={20}
+            />
+
+            <p className="text-[14px]">
+              {transmission === "a" ? "Automatic" : "Manual"}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
