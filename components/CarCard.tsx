@@ -3,7 +3,7 @@
 import { CarProps } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
-import { CustomButton } from "./";
+import { CarDetails, CustomButton } from "./";
 import { calculateCarRent } from "@/utils";
 
 interface carCardProps {
@@ -14,6 +14,8 @@ const CarCard = ({ car }: carCardProps) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
 
   const carRent = calculateCarRent(city_mpg, year);
+
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="car-card group cursor-pointer">
       <div className="car-card__content">
@@ -53,8 +55,36 @@ const CarCard = ({ car }: carCardProps) => {
               {transmission === "a" ? "Automatic" : "Manual"}
             </p>
           </div>
+
+          <div className="flex flex-col justify-center items-center gap-2">
+            <Image src="/tire.svg" alt="tire" width={20} height={20} />
+
+            <p className="text-[14px]">{drive.toUpperCase()}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center gap-2">
+            <Image src="/gas.svg" alt="gas" width={20} height={20} />
+
+            <p className="text-[14px]">{city_mpg} MPG</p>
+          </div>
+        </div>
+
+        <div className="car-card__btn-container">
+          <CustomButton
+            title="View More"
+            containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
+            textStyles="text-white text-[14px] leading-[17px] font-bold tracking-widest"
+            rightIcon="/right-arrow.svg"
+            handleClick={() => setIsOpen(true)}
+          />
         </div>
       </div>
+
+      <CarDetails
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+        car={car}
+      />
     </div>
   );
 };
